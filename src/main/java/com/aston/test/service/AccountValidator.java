@@ -14,6 +14,11 @@ public class AccountValidator {
         isThereEnoughMoneyInAccount(account, amount);
     }
 
+    public void validateIsAmountPositive(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0)
+            throw new RuntimeException("AMOUNT_MUST_BE_POSITIVE");
+    }
+
     private void verifyPin(Account account, String pin) {
         if (!account.getPin().equals(pin))
             throw new RuntimeException("WRONG_PIN");
@@ -24,8 +29,4 @@ public class AccountValidator {
             throw new RuntimeException("NOT_ENOUGH_MONEY");
     }
 
-    private void validateIsAmountPositive(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0)
-            throw new RuntimeException("AMOUNT_MUST_BE_POSITIVE");
-    }
 }

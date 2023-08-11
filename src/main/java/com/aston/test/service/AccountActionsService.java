@@ -39,6 +39,7 @@ public class AccountActionsService {
     @Transactional
     public AccountDTO depositBalance(Long accountId, BigDecimal amount) {
         Account account = getAccountIfExists(accountId);
+        validator.validateIsAmountPositive(amount);
         account.setBalance(account.getBalance().add(amount));
         transactionHistoryService.logTransaction(account, amount, TransactionType.DEPOSIT);
         return mapper.accountToAccountDTO(accountRepository.save(account));
